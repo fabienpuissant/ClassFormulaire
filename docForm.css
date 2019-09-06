@@ -1,0 +1,37 @@
+
+h1{
+  margin-left: 10vw;
+  margin-top: 5vh;
+  margin-bottom: 10vh;
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.row {
+  margin-bottom: 5vh;
+}
+
+#links{
+  margin-left: 10vw;
+}
+
+#class_container{
+  margin-top: 10vh;
+}
+
+.titre{
+  font-size: 1.2em;
+  text-decoration: underline;
+  color: #007FFF;
+}
+
+.content{
+  margin-left: 5vw;
+  margin-bottom: 10vh;
+}
+
+#function_name{
+  color: #007FFF;
+}

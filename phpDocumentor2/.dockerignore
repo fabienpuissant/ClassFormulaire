@@ -1,0 +1,13 @@
+bin/*
+!bin/phpdoc
+!bin/console
+build
+cache
+phpunit.xml.dist
+docs
+features
+tests
+.*
+phpmd.xml.dist
+behat.yml
+box.json
