@@ -31,7 +31,6 @@ class DatabaseManager {
     				<script type="text/javascript" src = "bootstrap/js/bootstrap.js"></script>
     				<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 							<script src ="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-						<link rel="stylesheet" href="styleDbManager.css">
 				</head>
 
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">
