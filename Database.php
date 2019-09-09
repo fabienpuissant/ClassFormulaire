@@ -6,7 +6,7 @@
 */
 class Database {
 
-  private $_all_fieds;
+  private $_all_fields;
   private $_table_name;
   private $_bdd;
 
@@ -20,7 +20,7 @@ class Database {
   */
   public function __construct($dbname, $dbuser, $dbpassword, $tableName, $data){
     $this->_table_name = $tableName;
-    $this->_all_fieds = $data;
+    $this->_all_fields = $data;
     try
       {
        	$this->_bdd = new PDO('mysql:host=localhost;dbname='.$dbname.';charset=utf8',  $dbuser , $dbpassword);
@@ -42,6 +42,29 @@ class Database {
       $this->_bdd->prepare($requete)->execute();
 
   }
+
+  /**
+  *@return array array of all fields in the table
+  */
+  public function get_all_fields() {
+    return $this->_all_fields;
+  }
+
+  /**
+  *@return string table name
+  */
+  public function get_table_name() {
+    return $this->_table_name;
+  }
+
+  /**
+  *@return PDO object bdd
+  */
+  public function get_bdd() {
+    return $this->_bdd;
+  }
+
+
 
 
 /**
@@ -86,7 +109,7 @@ public function delete($array){
 *@return void
 */
 public function update($array_find, $array_update){
-	
+
 	$check = "SELECT * FROM " . $this->_table_name ." WHERE ";
 
 	$requete = "UPDATE " . $this->_table_name ." SET ";
@@ -97,11 +120,20 @@ public function update($array_find, $array_update){
 	$requete = $requete." WHERE ";
 	foreach ($array_find as $key => $value){
 		$requete = $requete.$key."="."'".htmlentities($value)."'"." AND ";
-		$check = $check.
+		$check = $check.$key."="."'".htmlentities($value)."'"." AND ";
 	}
+  $check = substr($check, 0, -4);
 	$requete = substr($requete, 0, -4);
-	$this->_bdd->exec($requete);
-
+  $check_request = $this->_bdd->query($check);
+  if ($check_request->fetch() == false){
+    ?>
+      <script type="text/javascript">
+          alert("No user found");
+      </script>
+    <?php
+  } else {
+	   $this->_bdd->exec($requete);
+   }
 }
 
 }

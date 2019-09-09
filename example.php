@@ -14,6 +14,7 @@
 
 require("FormClass.php");
 require('Database.php');
+require("DatabaseManager.php");
 
   $form = new Formulaire('');
   $form->add_radio("Choose an option", array("Test1", "Test2"), "TestRadio");
@@ -25,8 +26,13 @@ require('Database.php');
 
 
   $data = new Database("bdd_handicop", "root", '', "test2", $form->get_data());
-  $data ->add($arrayName = array('TestRadio' => "Test1", "Email" => "test@test"));
+//  $data ->add($arrayName = array('TestRadio' => "Test1", "Email" => "test@test"));
   $data->update(array('TestRadio' => "Test1", "Email" => "test@test" ), array('TestRadio' => 'Test2', 'Week' => 'TestWeek'));
-  $data->delete(array('TestRadio' => "Test1", "Email" => "test@test"));
+  //$data->delete(array('TestRadio' => "Test1", "Email" => "test@test"));
+
+  $databaseManager = new DatabaseManager($data);
+  $databaseManager->initialize();
+  $databaseManager->display_table();
+  $databaseManager->close_html();
 
   ?>
