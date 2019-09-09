@@ -23,7 +23,7 @@ class Database {
     $this->_all_fieds = $data;
     try
       {
-       	$this->_bdd = new PDO('mysql:host=localhost;dbname='.$dbname.';charset=utf8',  "'" .$dbuser."'"  , '');
+       	$this->_bdd = new PDO('mysql:host=localhost;dbname='.$dbname.';charset=utf8',  $dbuser , $dbpassword);
       }
       catch(Exception $e)
       {
@@ -48,7 +48,7 @@ class Database {
 *@param array Array key : field name in the database, value : value to set in the database
 *@return void
 */
-public function add_user($array) : void {
+public function add($array) : void {
   $requete = "INSERT INTO " . $this->_table_name . " (";
   $labels = "";
   $values_string = "";
@@ -63,10 +63,47 @@ public function add_user($array) : void {
   $requete = $requete . $labels . ") VALUES (" . $values_string . ")";
   $this->_bdd->prepare($requete)->execute($values);
 
+}
+
+
+/**
+*@param array key = field to look for, value = the value which is to be found to catch the row in the table. This array can have multiple keys, you have to pass the minimum of key to identify the row which be deleted
+*@return void
+*/
+public function delete($array){
+	$requete = "DELETE FROM " . $this->_table_name ." WHERE ";
+	foreach ($array as $key => $value){
+		$requete = $requete.$key."="."'".htmlentities($value)."'"."AND ";
+	}
+	$requete = substr($requete, 0, -4);
+	$this->_bdd->exec($requete);
+}
+
+
+/**
+*@param array key = field to look for, value = the value which is to be found to catch the row in the table. This array can have multiple keys, you have to pass the minimum of key to identify the row which be updated
+*@param array key = field which will be updated, value = the updated value
+*@return void
+*/
+public function update($array_find, $array_update){
+	
+	$check = "SELECT * FROM " . $this->_table_name ." WHERE ";
+
+	$requete = "UPDATE " . $this->_table_name ." SET ";
+	foreach ($array_update as $key => $value){
+		$requete = $requete.$key."="."'".htmlentities($value)."'".", ";
+	}
+	$requete = substr($requete, 0, -2);
+	$requete = $requete." WHERE ";
+	foreach ($array_find as $key => $value){
+		$requete = $requete.$key."="."'".htmlentities($value)."'"." AND ";
+		$check = $check.
+	}
+	$requete = substr($requete, 0, -4);
+	$this->_bdd->exec($requete);
 
 }
 
 }
-
 
  ?>
