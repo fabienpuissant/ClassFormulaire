@@ -14,25 +14,23 @@
 
 require("FormClass.php");
 require('Database.php');
-require("DatabaseManager.php");
+
 
   $form = new Formulaire('');
-  $form->add_radio("Choose an option", array("Test1", "Test2"), "TestRadio");
   $form->add_email("Email", "Email", false);
-  $form->add_checkbox("Accept", "Checkbox");
-  $form->add_tel("Birthdate", "Date", true);
-  $form->add_password("Week", 'Week');
-  $form->add_submit("Aller");
+  $form->add_password("Mot de Passe", "Mdp");
+  $form->add_submit("Envoyer");
 
 
-  $data = new Database("bdd_handicop", "root", '', "test2", $form->get_data());
-//  $data ->add($arrayName = array('TestRadio' => "Test1", "Email" => "test@test"));
-  $data->update(array('TestRadio' => "Test1", "Email" => "test@test" ), array('TestRadio' => 'Test2', 'Week' => 'TestWeek'));
+  $data = new Database("bdd_handicop", "root", '', "Test3", $form->get_data());
+  var_dump($form->get_data());
+  if(!empty($_POST)){
+    foreach ($_POST as $key => $value) {
+      $_POST[$key] = htmlspecialchars($_POST[$key]);
+    }
+    $data ->add($_POST);
+  }
+  //$data->update(array('TestRadio' => "Test2", "Email" => "TestWeek" ), array('TestRadio' => 'Test2', 'Checkbox' => 'TestWeek'));
   //$data->delete(array('TestRadio' => "Test1", "Email" => "test@test"));
-
-  $databaseManager = new DatabaseManager($data);
-  $databaseManager->initialize();
-  $databaseManager->display_table();
-  $databaseManager->close_html();
 
   ?>

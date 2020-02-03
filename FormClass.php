@@ -63,6 +63,37 @@ public function get_data() : array {
   }
 
   /**
+  *@param string Label of the list
+  *@param array  All options of the list
+  *@param string Name of form field
+  *@return void
+  */
+  public function add_list ($label, $data_array, $name) : void {
+
+    $this->_data[] = $name;
+
+    ?>
+    <div class="container">
+      <div class = "form-group">
+      <label for=""><?= $label; ?></label><br/>
+      <?php
+      ?>
+        <select class="form-control" name="<?= $name; ?>">
+          <?php
+      foreach ($data_array as $key => $value) {
+        ?>
+            <option value="<?= $value; ?>"><?= $value; ?></option>
+        <?php
+      }
+      ?>
+    </select>
+    </div>
+  </div>
+  <br/>
+      <?php
+  }
+
+  /**
   *@param string Label of the field
   *@param string Name of form field
   *@param bool Optionnal argument default = false : not required, put true if required
@@ -107,7 +138,7 @@ public function get_data() : array {
       ?>
       <div class = "form-group">
         <label for =""><?= $label; ?></label>
-        <input type="date"  class = "form-control" name="<?php $name; ?>" <?php if($required){ echo "required"; } ?> >
+        <input type="date"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
       </div> <br/>
       <?php
   }
@@ -123,7 +154,7 @@ public function get_data() : array {
       ?>
       <div class = "form-group">
         <label for =""><?= $label; ?></label>
-        <input type="time"  class = "form-control" name="<?php $name; ?>" <?php if($required){ echo "required"; } ?> >
+        <input type="time"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
       </div> <br/>
       <?php
   }
@@ -140,7 +171,7 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="month"  class = "form-control" name="<?php $name; ?>" <?php if($required){ echo "required"; } ?> >
+      <input type="month"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
     </div> <br/>
     <?php
   }
@@ -173,7 +204,7 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="number"  class = "form-control" name="<?php $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?>  >
+      <input type="number"  class = "form-control" name="<?= $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?>  >
     </div> <br/>
     <?php
   }
@@ -189,7 +220,7 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="password"  class = "form-control" name="<?php $name; ?>" <?php if($required){ echo "required"; } ?> >
+      <input type="password"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
     </div> <br/>
     <?php
   }
@@ -206,7 +237,7 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="tel"  class = "form-control" name="<?php $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?> >
+      <input type="tel"  class = "form-control" name="<?= $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?> >
     </div> <br/>
     <?php
   }
@@ -223,7 +254,7 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="url"  class = "form-control" name="<?php $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?> >
+      <input type="url"  class = "form-control" name="<?= $name; ?>" placeholder="<?= $placeholder; ?>" <?php if($required){ echo "required"; } ?> >
     </div> <br/>
     <?php
   }
@@ -239,7 +270,23 @@ public function get_data() : array {
     ?>
     <div class = "form-group">
       <label for =""><?= $label; ?></label>
-      <input type="week"  class = "form-control" name="<?php $name; ?>" <?php if($required){ echo "required"; } ?> >
+      <input type="week"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
+    </div> <br/>
+    <?php
+  }
+
+  /**
+  *@param string Label of the field
+  *@param string Name of form field
+  *@param bool Optionnal param default : false file not required, put true if $required
+  *@return void
+  */
+  public function add_text($label, $name, $required = false) : void {
+    $this->_data [] = $name;
+    ?>
+    <div class = "form-group">
+      <label for =""><?= $label; ?></label>
+      <input type="text"  class = "form-control" name="<?= $name; ?>" <?php if($required){ echo "required"; } ?> >
     </div> <br/>
     <?php
   }
@@ -266,6 +313,7 @@ public function add_reset() : void {
      <button type="submit" id="soumettre" class = "btn btn-primary"><?= $label; ?></button>
   <!--Close the main container -->
    </div>
+ </form>
      <?php
   }
 }
